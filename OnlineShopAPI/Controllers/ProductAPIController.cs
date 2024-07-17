@@ -144,39 +144,7 @@ namespace OnlineShopAPI.Controllers
             }
             return _response;
         }
-
-        //[Authorize(Roles = "admin")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [HttpDelete("{id:int}", Name = "DeleteProduct")]
-        public async Task<ActionResult<APIResponse>> DeleteProduct(int id)
-        {
-            try
-            {
-                if (id == 0)
-                {
-                    return BadRequest();
-                }
-                var product = await _dbProduct.GetAsync(u => u.ProductId == id);
-                if (product == null)
-                {
-                    return NotFound();
-                }
-                await _dbProduct.RemoveAsync(product);
-                _response.StatusCode = HttpStatusCode.NoContent;
-                _response.IsSuccess = true;
-                return Ok(_response);
-            }
-            catch (Exception ex)
-            {
-                _response.IsSuccess = false;
-                _response.ErrorMessages
-                     = new List<string>() { ex.ToString() };
-            }
-            return _response;
-        }
-
+               
         //[Authorize(Roles = "admin")]
         [HttpPut("{id:int}", Name = "UpdateProduct")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -213,6 +181,37 @@ namespace OnlineShopAPI.Controllers
             return _response;
         }
 
+        //[Authorize(Roles = "admin")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [HttpDelete("{id:int}", Name = "DeleteProduct")]
+        public async Task<ActionResult<APIResponse>> DeleteProduct(int id)
+        {
+            try
+            {
+                if (id == 0)
+                {
+                    return BadRequest();
+                }
+                var product = await _dbProduct.GetAsync(u => u.ProductId == id);
+                if (product == null)
+                {
+                    return NotFound();
+                }
+                await _dbProduct.RemoveAsync(product);
+                _response.StatusCode = HttpStatusCode.NoContent;
+                _response.IsSuccess = true;
+                return Ok(_response);
+            }
+            catch (Exception ex)
+            {
+                _response.IsSuccess = false;
+                _response.ErrorMessages
+                     = new List<string>() { ex.ToString() };
+            }
+            return _response;
+        }
     }
 
     
