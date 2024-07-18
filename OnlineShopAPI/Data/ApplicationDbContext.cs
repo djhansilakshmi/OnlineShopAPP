@@ -11,6 +11,8 @@ namespace OnlineShopAPI.Data
             : base(options)
         {
         }
+
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Category> categories { get; set; }
 
          public DbSet<Product> products { get; set; }

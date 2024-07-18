@@ -37,6 +37,7 @@ namespace OnlineShop_Web.Controllers
 }
             return View(list);
         }
+
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> CreateProduct()
         {

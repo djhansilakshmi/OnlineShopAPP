@@ -23,7 +23,7 @@ namespace OnlineShop_Web.Services
             {
                 ApiType = SD.ApiType.POST,
                 Data = obj,
-                Url = onlineShopUrl + "/api/v1/UsersAuth/login"
+                Url = onlineShopUrl + "/api/UsersAuth/login"
             });
         }
 
@@ -33,7 +33,7 @@ namespace OnlineShop_Web.Services
             {
                 ApiType = SD.ApiType.POST,
                 Data = obj,
-                Url = onlineShopUrl + "/api/v1/UsersAuth/register"
+                Url = onlineShopUrl + "/api/UsersAuth/register"
             });
         }
     }

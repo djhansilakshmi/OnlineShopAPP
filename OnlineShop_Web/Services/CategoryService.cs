@@ -13,7 +13,7 @@ namespace OnlineShop_Web.Services
         public CategoryService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory)
         {
             _clientFactory = clientFactory;
-            onlineShopUrl = configuration.GetValue<string>("ServiceUrls:VillaAPI");
+            onlineShopUrl = configuration.GetValue<string>("ServiceUrls:OnlineShopAPI");
 
         }
 
