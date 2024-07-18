@@ -16,6 +16,9 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddHttpClient<IProductService, ProductService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 
+builder.Services.AddHttpClient<IAttributesService, AttributesService>();
+builder.Services.AddScoped<IAttributesService, AttributesService>();
+
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 builder.Services.AddHttpClient<IAuthService, AuthService>();

@@ -29,7 +29,7 @@ namespace OnlineShopAPI.Models
         public int InventoryAvailable { get; set; }
         public int InventoryReserved { get; set; }
 
-        [Required]
+        //[Required]
         public List<Attributes> Attributes { get; set; }
 
         public DateTime CreatedDate { get; set; }

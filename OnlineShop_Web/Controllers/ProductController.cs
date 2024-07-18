@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Data;
+using System.Reflection;
 
 namespace OnlineShop_Web.Controllers
 {
@@ -26,11 +27,12 @@ namespace OnlineShop_Web.Controllers
             _categoryService = categoryService;
         }
 
-        public async Task<IActionResult> IndexProduct()
+        public async Task<IActionResult> IndexProduct(int categoryId)
         {
             List<ProductDTO> list = new();
+            TempData["CategoryId"] = categoryId;
 
-            var response = await _productService.GetAllAsync<APIResponse>(HttpContext.Session.GetString(SD.SessionToken));
+			var response = await _productService.GetAllAsync<APIResponse>(categoryId,HttpContext.Session.GetString(SD.SessionToken));
             if (response != null && response.IsSuccess)
             {
                 list = JsonConvert.DeserializeObject<List<ProductDTO>>(Convert.ToString(response.Result));
@@ -39,19 +41,20 @@ namespace OnlineShop_Web.Controllers
         }
 
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> CreateProduct()
+        public async Task<IActionResult> CreateProduct(int categoryId)
         {
             ProductCreateVM productVM = new();
-            var response = await _productService.GetAllAsync<APIResponse>(HttpContext.Session.GetString(SD.SessionToken));
-            if (response != null && response.IsSuccess)
-{
-                productVM.CategoryList = JsonConvert.DeserializeObject<List<CategoryDTO>>
-                    (Convert.ToString(response.Result)).Select(i => new SelectListItem
-                    {
-                        Text = i.Name,
-                        Value = i.Id.ToString()
-                    }); ;
-            }
+            TempData["CategoryId"] = categoryId;
+            //var response = await _productService.GetAllAsync<APIResponse>(categoryId, HttpContext.Session.GetString(SD.SessionToken));
+            //if (response != null && response.IsSuccess)
+            //{
+            //    productVM.CategoryList = JsonConvert.DeserializeObject<List<CategoryDTO>>
+            //        (Convert.ToString(response.Result)).Select(i => new SelectListItem
+            //        {
+            //            Text = i.Name,
+            //            Value = i.Id.ToString()
+            //        }); ;
+            //}
             return View(productVM);
         }
 
@@ -60,13 +63,16 @@ namespace OnlineShop_Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateProduct(ProductCreateVM model)
         {
-            if (ModelState.IsValid)
-            {
-
+            model.Product.Attributes = new List<AttributesCreateDTO>()
+            { new AttributesCreateDTO { Name = "Color", Value = "Silver" },
+              new AttributesCreateDTO { Name = "Storage", Value = "512GB SSD" } };
+            //if (ModelState.IsValid)
+            //{
+            
                 var response = await _productService.CreateAsync<APIResponse>(model.Product, HttpContext.Session.GetString(SD.SessionToken));
                 if (response != null && response.IsSuccess)
                 {
-                    return RedirectToAction(nameof(IndexProduct));
+                    return RedirectToAction(nameof(IndexProduct), new { categoryId = model.Product.CategoryID });
                 }
                 else
                 {
@@ -75,33 +81,38 @@ namespace OnlineShop_Web.Controllers
                         ModelState.AddModelError("ErrorMessages", response.ErrorMessages.FirstOrDefault());
                     }
                 }
-            }
+            //}
 
-            var resp = await _categoryService.GetAllAsync<APIResponse>(HttpContext.Session.GetString(SD.SessionToken));
-            if (resp != null && resp.IsSuccess)
-            {
-                model.CategoryList = JsonConvert.DeserializeObject<List<CategoryDTO>>
-                    (Convert.ToString(resp.Result)).Select(i => new SelectListItem
-                    {
-                        Text = i.Name,
-                        Value = i.Id.ToString()
-                    }); ;
-            }
+            //var resp = await _categoryService.GetAllAsync<APIResponse>(HttpContext.Session.GetString(SD.SessionToken));
+            //if (resp != null && resp.IsSuccess)
+            //{
+            //    model.CategoryList = JsonConvert.DeserializeObject<List<CategoryDTO>>
+            //        (Convert.ToString(resp.Result)).Select(i => new SelectListItem
+            //        {
+            //            Text = i.Name,
+            //            Value = i.Id.ToString()
+            //        }); ;
+            //}
             return View(model);
         }
 
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> UpdateProduct(int categoryId)
+        public async Task<IActionResult> UpdateProduct(int productId)
         {
             ProductUpdateVM productVM = new();
-            var response = await _productService.GetAsync<APIResponse>(categoryId, HttpContext.Session.GetString(SD.SessionToken));
+            var response = await _productService.GetAsync<APIResponse>(productId, HttpContext.Session.GetString(SD.SessionToken));
             if (response != null && response.IsSuccess)
             {
                 ProductDTO model = JsonConvert.DeserializeObject<ProductDTO>(Convert.ToString(response.Result));
                 productVM.Product =  _mapper.Map<ProductUpdateDTO>(model);
             }
+            TempData["CategoryId"]  = productVM.Product.CategoryID;
+            TempData["Name"] = productVM.Product.Name;
+            TempData["Brand"] = productVM.Product.Brand;
+            TempData["Description"] = productVM.Product.Description;
+            //TempData["CategoryId"] = productVM.Product.Na;
 
-            response = await _productService.GetAllAsync<APIResponse>(HttpContext.Session.GetString(SD.SessionToken));
+            response = await _productService.GetAllAsync<APIResponse>(productId, HttpContext.Session.GetString(SD.SessionToken));
             if (response != null && response.IsSuccess)
             {
                 productVM.CategoryList = JsonConvert.DeserializeObject<List<CategoryDTO>>
@@ -127,7 +138,7 @@ namespace OnlineShop_Web.Controllers
                 var response = await _productService.UpdateAsync<APIResponse>(model.Product, HttpContext.Session.GetString(SD.SessionToken));
                 if (response != null && response.IsSuccess)
                 {
-                    return RedirectToAction(nameof(IndexProduct));
+                    return RedirectToAction(nameof(IndexProduct), new { categoryId = model.Product.CategoryID });
                 }
                 else
                 {
@@ -138,7 +149,7 @@ namespace OnlineShop_Web.Controllers
                 }
             }
 
-            var resp = await _productService.GetAllAsync<APIResponse>(HttpContext.Session.GetString(SD.SessionToken));
+            var resp = await _productService.GetAllAsync<APIResponse>(model.Product.CategoryID, HttpContext.Session.GetString(SD.SessionToken));
             if (resp != null && resp.IsSuccess)
             {
                 model.CategoryList = JsonConvert.DeserializeObject<List<CategoryDTO>>
@@ -161,7 +172,7 @@ namespace OnlineShop_Web.Controllers
                 ProductDTO model = JsonConvert.DeserializeObject<ProductDTO>(Convert.ToString(response.Result));
                 productVM.Product = model;
             }
-
+            TempData["CategoryId"] = productVM.Product.CategoryID;
             response = await _categoryService.GetAllAsync<APIResponse>(HttpContext.Session.GetString(SD.SessionToken));
             if (response != null && response.IsSuccess)
             {
@@ -186,7 +197,8 @@ namespace OnlineShop_Web.Controllers
             var response = await _productService.DeleteAsync<APIResponse>(model.Product.ProductId, HttpContext.Session.GetString(SD.SessionToken));
             if (response != null && response.IsSuccess)
             {
-                return RedirectToAction(nameof(IndexProduct));
+                
+                return RedirectToAction(nameof(IndexProduct), new { categoryId = model.Product.CategoryID });
             }
 
             return View(model);

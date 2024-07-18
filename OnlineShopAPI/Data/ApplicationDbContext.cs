@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using OnlineShopAPI.Models;
 using System;
 using System.ComponentModel.DataAnnotations;
 namespace OnlineShopAPI.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -13,6 +14,9 @@ namespace OnlineShopAPI.Data
         }
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
+        public DbSet<LocalUser> LocalUsers { get; set; }
+
         public DbSet<Category> categories { get; set; }
 
          public DbSet<Product> products { get; set; }

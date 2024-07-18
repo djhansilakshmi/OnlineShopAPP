@@ -6,11 +6,11 @@ namespace OnlineShop_Web.Models.Dto
     public class ProductUpdateDTO
     {
         public int ProductId { get; set; }
-        [Required]
+        //[Required]
         public string Name { get; set; }
-        [Required]
+        //[Required]
         public string Brand { get; set; }
-        [Required]
+        //[Required]
         public string Description { get; set; }
 
         [ForeignKey("category")]
@@ -23,6 +23,6 @@ namespace OnlineShop_Web.Models.Dto
         public int InventoryTotal { get; set; }
         public int InventoryAvailable { get; set; }
         public int InventoryReserved { get; set; }        
-        public List<AttributesUpdateDTO>? Attributes { get; set; }
+        //public List<AttributesUpdateDTO>? Attributes { get; set; }
     }
 }

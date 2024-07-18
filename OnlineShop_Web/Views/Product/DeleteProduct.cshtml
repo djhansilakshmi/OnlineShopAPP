@@ -6,6 +6,7 @@
         <h1 class="text-primary">Delete Product</h1>
         <hr />
         <input hidden asp-for="Product.ProductId" />
+        <input hidden asp-for="Product.CategoryID" value="@TempData["CategoryId"]" id="hdnCategoryID" />
         <div class="row">
 
             <div class="col-2">
@@ -20,14 +21,15 @@
             </div>
             <div class="col-10 pb-3">
                 <input asp-for="Product.Brand" disabled class="form-control" />
-            div>
+            </div>
 
             @* Description  *@
             <div class="col-2">
                 <label asp-for="Product.Description" class="control-label pt-2" style="font-size:20px;"></label>
             </div>
             <div class="col-10 pb-3">
-                <textarea asp-for="Product.Description" disabled class="form-control" rows="5" />
+                <textarea asp-for="Product.Description" disabled class="form-control" rows="5"> </textarea>
+                @* <span asp-validation-for="Product.Description" class="text-danger"></span> *@
             </div>
 
             @* Currency  *@
@@ -35,7 +37,8 @@
                 <label asp-for="Product.Currency" class="control-label pt-2" style="font-size:20px;"></label>
             </div>
             <div class="col-10 pb-3">
-                <input asp-for="Product.Currency" class="form-control" />               
+                <input asp-for="Product.Currency" disabled class="form-control" />
+                <span asp-validation-for="Product.Currency" class="text-danger"></span>
             </div>
 
             @* Amount  *@
@@ -43,7 +46,8 @@
                 <label asp-for="Product.Amount" class="control-label pt-2" style="font-size:20px;"></label>
             </div>
             <div class="col-10 pb-3">
-                <input asp-for="Product.Amount" class="form-control" />
+                <input asp-for="Product.Amount" disabled class="form-control" />
+                <span asp-validation-for="Product.Amount" class="text-danger"></span>
             </div>
 
             @* InventoryTotal  *@
@@ -51,7 +55,8 @@
                 <label asp-for="Product.InventoryTotal" class="control-label pt-2" style="font-size:20px;"></label>
             </div>
             <div class="col-10 pb-3">
-                <input asp-for="Product.InventoryTotal" class="form-control" />
+                <input asp-for="Product.InventoryTotal" disabled class="form-control" />
+                <span asp-validation-for="Product.InventoryTotal" class="text-danger"></span>
             </div>
 
             @* InventoryAvailable  *@
@@ -59,7 +64,8 @@
                 <label asp-for="Product.InventoryAvailable" class="control-label pt-2" style="font-size:20px;"></label>
             </div>
             <div class="col-10 pb-3">
-                <input asp-for="Product.InventoryAvailable" class="form-control" />
+                <input asp-for="Product.InventoryAvailable" disabled class="form-control" />
+                <span asp-validation-for="Product.InventoryAvailable" class="text-danger"></span>
             </div>
 
             @* InventoryReserved  *@
@@ -67,26 +73,11 @@
                 <label asp-for="Product.InventoryReserved" class="control-label pt-2" style="font-size:20px;"></label>
             </div>
             <div class="col-10 pb-3">
-                <input asp-for="Product.InventoryReserved" class="form-control" />
+                <input asp-for="Product.InventoryReserved" disabled class="form-control" />
+                <span asp-validation-for="Product.InventoryReserved" class="text-danger"></span>
             </div>
-
-        @*     <div class="col-2">
-                <label asp-for="Product.Brand" class="control-label pt-2" style="font-size:20px;"></label>
-            </div>
-            <div class="col-10 pb-3">
-                <select asp-for="VillaNumber.VillaID" disabled class="form-select" asp-items="@Model.VillaList">
-                    <option disabled selected>--Select Villa--</option>
-                </select>
-            </div>
-            <div class="col-2">
-                <label asp-for="VillaNumber.SpecialDetails" class="control-label pt-2" style="font-size:20px;"></label>
-            </div>
-            <div class="col-10 pb-3">
-                <textarea asp-for="VillaNumber.SpecialDetails" readonly class="form-control" rows="5"></textarea>
-            </div>
- *@
             <div class="col-5 offset-2">
-                <a asp-action="IndexProduct" asp-controller="Product" class="btn-primary btn form-control ">Back to List</a>
+                <a asp-action="IndexProduct" asp-controller="Product" asp-route-categoryId="@TempData["CategoryId"]" class="btn-primary btn form-control ">Back to List</a>
             </div>
             <div class="col-5">
                 <input type="submit" value="Delete" class="btn btn-success form-control" />

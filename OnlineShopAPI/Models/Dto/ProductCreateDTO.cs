@@ -24,7 +24,7 @@ namespace OnlineShopAPI.Models.Dto
         public int InventoryAvailable { get; set; }
         public int InventoryReserved { get; set; }
 
-        [Required]
+        //[Required]
         public List<AttributesCreateDTO> Attributes { get; set; }
     }
 }

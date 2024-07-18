@@ -136,7 +136,7 @@ namespace OnlineShopAPI.Controllers
         [HttpPut("{productId:int}", Name = "UpdateAttributes")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<APIResponse>> UpdateAttributes([FromBody] AttributesUpdateDTO updateDTO, int productId)
+        public async Task<ActionResult<APIResponse>> UpdateAttributes(int productId, [FromBody] AttributesUpdateDTO updateDTO,)
         {
             try
             {

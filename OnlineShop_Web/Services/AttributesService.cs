@@ -6,25 +6,25 @@ using Newtonsoft.Json.Linq;
 
 namespace OnlineShop_Web.Services
 {
-    public class ProductService : BaseService, IProductService
-    {
+    public class AttributesService : BaseService, IAttributesService
+	{
         private readonly IHttpClientFactory _clientFactory;
         private string onlineShopUrl;
 
-        public ProductService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory)
+        public AttributesService(IHttpClientFactory clientFactory, IConfiguration configuration) : base(clientFactory)
         {
             _clientFactory = clientFactory;
             onlineShopUrl = configuration.GetValue<string>("ServiceUrls:OnlineShopAPI");
 
         }
 
-        public Task<T> CreateAsync<T>(ProductCreateDTO dto, string token)
+        public Task<T> CreateAsync<T>(AttributesCreateDTO dto, string token)
         {
             return SendAsync<T>(new APIRequest()
             {
                 ApiType = SD.ApiType.POST,
                 Data = dto,
-                Url = onlineShopUrl + "/api/ProductAPI",
+                Url = onlineShopUrl + "/api/AttributesAPI",
                 Token = token
             });
         }
@@ -34,17 +34,17 @@ namespace OnlineShop_Web.Services
             return SendAsync<T>(new APIRequest()
             {
                 ApiType = SD.ApiType.DELETE,
-                Url = onlineShopUrl + "/api/ProductAPI/" + id,
+                Url = onlineShopUrl + "/api/AttributesAPI/" + id,
                 Token = token
             });
         }
 
-        public Task<T> GetAllAsync<T>(int categoryId, string token)
+        public Task<T> GetAllAsync<T>(int productId, string token)
         {
             return SendAsync<T>(new APIRequest()
             {
                 ApiType = SD.ApiType.GET,
-                Url = onlineShopUrl + "/api/ProductAPI?categoryId=" + categoryId,
+                Url = onlineShopUrl + "/api/AttributesAPI?productId=" + productId,
                 Token = token
             });
         }
@@ -54,18 +54,18 @@ namespace OnlineShop_Web.Services
             return SendAsync<T>(new APIRequest()
             {
                 ApiType = SD.ApiType.GET,
-                Url = onlineShopUrl + "/api/ProductAPI/" + id,
+                Url = onlineShopUrl + "/api/AttributesAPI/" + id,
                 Token = token
             });
         }
 
-        public Task<T> UpdateAsync<T>(ProductUpdateDTO dto, string token)
+        public Task<T> UpdateAsync<T>(AttributesUpdateDTO dto, string token)
         {
             return SendAsync<T>(new APIRequest()
             {
                 ApiType = SD.ApiType.PUT,
                 Data = dto,
-                Url = onlineShopUrl + "/api/ProductAPI/" + dto.ProductId,
+                Url = onlineShopUrl + "/api/ProductAPI/" + dto.AttributeId,
                 Token = token
             }) ;
         }

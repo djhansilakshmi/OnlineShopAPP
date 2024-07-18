@@ -16,7 +16,7 @@
 				<th>
 					Name
 				</th>
-				
+				<th></th>
 				<th></th>
 			</tr>
 		</thead>
@@ -26,9 +26,13 @@
 				<tr>
 					<td>@item.Name</td>
 					<td>
-						<a asp-controller="Category" asp-action="UpdateCategory" asp-route-villaId="@item.Id" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
-						<a asp-controller="Category" asp-action="DeleteCategory" asp-route-villaId="@item.Id" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a>
+						<a asp-controller="Category" asp-action="UpdateCategory" asp-route-categoryId="@item.Id" class="btn btn-success"><i class="bi bi-pencil-square">Edit</i></a>
+						<a asp-controller="Category" asp-action="DeleteCategory" asp-route-categoryId="@item.Id" class="btn btn-danger"><i class="bi bi-trash-fill">Delete</i></a>
 					</td>
+					<td>
+						<a asp-controller="Product" asp-action="IndexProduct" asp-route-categoryId="@item.Id" class="btn btn-success"><i class="bi bi-pencil-square">View Product</i></a>
+					</td>
+
 				</tr>
 			}
 		</tbody>

@@ -6,7 +6,8 @@
 			<h1 class="text-primary">Product List</h1>
 		</div>
 		<div class="col text-end pt-1">
-			<a asp-controller="Product" asp-action="CreateProduct" class="btn btn-outline-primary"><i class="bi bi-plus-square-fill"></i> Create New Product</a>
+			<a asp-controller="Category" asp-action="IndexCategory"  class="btn btn-outline-primary"><i class="bi bi-plus-square-fill"></i> Back to Category</a>
+			<a asp-controller="Product" asp-action="CreateProduct" asp-route-categoryId="@TempData["CategoryId"]" class="btn btn-outline-primary"><i class="bi bi-plus-square-fill"></i> Create New Product</a>
 		</div>
 	</div>
 
@@ -19,6 +20,7 @@
 				<th>
 					Brand
 				</th>
+				<th>Description</th>
 				<th>Currency</th>
 				<th>Amount</th>
 				<th>InventoryTotal</th>
@@ -33,14 +35,17 @@
 				<tr>
 					<td>@item.Name</td>
 					<td>@item.Brand</td>
+					<td>@item.Description</td>
 					<td>@item.Currency</td>
 					<td>@item.Amount</td>
 					<td>@item.InventoryTotal</td>
 					<td>@item.InventoryAvailable</td>
 					<td>@item.InventoryReserved</td>
 					<td>
-						<a asp-controller="Product" asp-action="UpdateProduct" asp-route-villaNo="@item.ProductId" class="btn btn-success"><i class="bi bi-pencil-square"></i></a>
-						<a asp-controller="Product" asp-action="DeleteProduct" asp-route-villaNo="@item.ProductId" class="btn btn-danger"><i class="bi bi-trash-fill"></i></a>
+						
+						<a asp-controller="Product" asp-action="UpdateProduct" asp-route-productId="@item.ProductId" class="btn btn-success"><i class="bi bi-pencil-square">Edit</i></a>
+						<a asp-controller="Product" asp-action="DeleteProduct" asp-route-productId="@item.ProductId" class="btn btn-danger"><i class="bi bi-trash-fill">Delete</i></a>
+						<a asp-controller="Attributes" asp-action="IndexAttributes" asp-route-productId="@item.ProductId" class="btn btn-danger"><i class="bi bi-trash-fill">View Attributes</i></a>
 					</td>
 				</tr>
 			}

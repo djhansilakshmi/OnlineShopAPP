@@ -115,7 +115,7 @@ namespace OnlineShopAPI.Controllers
         public async Task<ActionResult<APIResponse>> CreateProduct([FromBody] ProductCreateDTO createDTO)
         {
             try
-            {
+                {
 
                 if (await _dbProduct.GetAsync(u => (u.CategoryID == createDTO.CategoryID) && (u.Name == createDTO.Name)) != null)
                 {

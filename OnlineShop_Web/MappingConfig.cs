@@ -17,12 +17,8 @@ namespace OnlineShop_Web
             CreateMap<ProductDTO, ProductUpdateDTO>().ReverseMap();
             
             CreateMap<AttributesDTO, AttributesCreateDTO>().ReverseMap();
-            CreateMap<AttributesDTO, AttributesUpdateDTO>().ReverseMap();
-
-            //CreateMap<VillaNumber, VillaNumberDTO>().ReverseMap();
-            //CreateMap<VillaNumber, VillaNumberCreateDTO>().ReverseMap();
-            //CreateMap<VillaNumber, VillaNumberUpdateDTO>().ReverseMap();
-            //CreateMap<ApplicationUser, UserDTO>().ReverseMap();
+            CreateMap<AttributesDTO, AttributesUpdateDTO>().ReverseMap();            
+          
         }
     }
 }

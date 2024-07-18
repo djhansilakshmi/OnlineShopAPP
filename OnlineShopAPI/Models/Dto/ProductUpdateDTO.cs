@@ -6,11 +6,11 @@ namespace OnlineShopAPI.Models.Dto
     public class ProductUpdateDTO
     {
         public int ProductId { get; set; }
-        [Required]
+        //[Required]
         public string Name { get; set; }
-        [Required]
+        //[Required]
         public string Brand { get; set; }
-        [Required]
+        //[Required]
         public string Description { get; set; }
 
         [ForeignKey("category")]
