@@ -19,11 +19,7 @@ namespace OnlineShopAPI.Data
 
         public DbSet<Category> categories { get; set; }
 
-         public DbSet<Product> products { get; set; }
-
-        //public DbSet<Price> price { get; set; }
-
-        //public DbSet<Inventory> inventories { get; set; }
+        public DbSet<Product> products { get; set; }     
 
         public DbSet<Attributes> attributes { get; set; }
 

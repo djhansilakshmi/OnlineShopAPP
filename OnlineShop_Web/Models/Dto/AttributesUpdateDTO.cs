@@ -12,7 +12,6 @@ namespace OnlineShop_Web.Models.Dto
 
         [ForeignKey("product")]
         public int ProductID { get; set; }
-        //public Product product { get; set; }
         public string Name { get; set; }
         public string Value { get; set; }
     }

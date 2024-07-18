@@ -6,17 +6,12 @@ namespace OnlineShop_Web.Models.Dto
     public class ProductUpdateDTO
     {
         public int ProductId { get; set; }
-        //[Required]
-        public string Name { get; set; }
-        //[Required]
+        public string Name { get; set; }        
         public string Brand { get; set; }
-        //[Required]
         public string Description { get; set; }
 
         [ForeignKey("category")]
         public int CategoryID { get; set; }
-        // Check if this is needed or not 
-        //public Category category { get; set; }
         public string Currency { get; set; }
         public double Amount { get; set; }
 

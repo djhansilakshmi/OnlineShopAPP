@@ -133,14 +133,14 @@ namespace OnlineShopAPI.Controllers
 
 
         //[Authorize(Roles = "admin")]
-        [HttpPut("{productId:int}", Name = "UpdateAttributes")]
+        [HttpPut("{attributeId:int}", Name = "UpdateAttributes")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<APIResponse>> UpdateAttributes(int productId, [FromBody] AttributesUpdateDTO updateDTO,)
+        public async Task<ActionResult<APIResponse>> UpdateAttributes(int attributeId, [FromBody] AttributesUpdateDTO updateDTO)
         {
             try
             {
-                if (updateDTO == null || updateDTO.ProductID != productId)
+                if (updateDTO == null || updateDTO.AttributeId != attributeId)
                 {
                     return BadRequest();
                 }

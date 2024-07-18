@@ -44,17 +44,7 @@ namespace OnlineShop_Web.Controllers
         public async Task<IActionResult> CreateProduct(int categoryId)
         {
             ProductCreateVM productVM = new();
-            TempData["CategoryId"] = categoryId;
-            //var response = await _productService.GetAllAsync<APIResponse>(categoryId, HttpContext.Session.GetString(SD.SessionToken));
-            //if (response != null && response.IsSuccess)
-            //{
-            //    productVM.CategoryList = JsonConvert.DeserializeObject<List<CategoryDTO>>
-            //        (Convert.ToString(response.Result)).Select(i => new SelectListItem
-            //        {
-            //            Text = i.Name,
-            //            Value = i.Id.ToString()
-            //        }); ;
-            //}
+            TempData["CategoryId"] = categoryId;            
             return View(productVM);
         }
 
@@ -82,17 +72,6 @@ namespace OnlineShop_Web.Controllers
                     }
                 }
             //}
-
-            //var resp = await _categoryService.GetAllAsync<APIResponse>(HttpContext.Session.GetString(SD.SessionToken));
-            //if (resp != null && resp.IsSuccess)
-            //{
-            //    model.CategoryList = JsonConvert.DeserializeObject<List<CategoryDTO>>
-            //        (Convert.ToString(resp.Result)).Select(i => new SelectListItem
-            //        {
-            //            Text = i.Name,
-            //            Value = i.Id.ToString()
-            //        }); ;
-            //}
             return View(model);
         }
 
@@ -110,8 +89,7 @@ namespace OnlineShop_Web.Controllers
             TempData["Name"] = productVM.Product.Name;
             TempData["Brand"] = productVM.Product.Brand;
             TempData["Description"] = productVM.Product.Description;
-            //TempData["CategoryId"] = productVM.Product.Na;
-
+           
             response = await _productService.GetAllAsync<APIResponse>(productId, HttpContext.Session.GetString(SD.SessionToken));
             if (response != null && response.IsSuccess)
             {
@@ -124,9 +102,9 @@ namespace OnlineShop_Web.Controllers
                 return View(productVM);
             }
 
-
             return NotFound();
         }
+
         [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]

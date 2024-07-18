@@ -11,7 +11,5 @@ namespace OnlineShop_Web.Models.VM
             Attributes = new AttributesCreateDTO();
         }
         public AttributesCreateDTO Attributes { get; set; }
-        [ValidateNever]
-        public List<ProductDTO> ProductList { get; set; }
     }
 }

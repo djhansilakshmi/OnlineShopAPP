@@ -65,7 +65,7 @@ namespace OnlineShop_Web.Services
             {
                 ApiType = SD.ApiType.PUT,
                 Data = dto,
-                Url = onlineShopUrl + "/api/ProductAPI/" + dto.AttributeId,
+                Url = onlineShopUrl + "/api/AttributesAPI/" + dto.AttributeId,
                 Token = token
             }) ;
         }

@@ -4,13 +4,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace OnlineShop_Web.Models.VM
 {
-    public class ProductCreateVM
+    public class AttributesDeleteVM
     {
-        public ProductCreateVM()
+        public AttributesDeleteVM()
         {
-            Product = new ProductCreateDTO();
+            attribute = new AttributesDTO();
         }
-        public ProductCreateDTO Product { get; set; }
-        
+        public AttributesDTO attribute { get; set; }
     }
 }

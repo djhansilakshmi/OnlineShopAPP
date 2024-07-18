@@ -71,7 +71,7 @@ namespace OnlineShopAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(200, Type =typeof(VillaDTO))]
+     
         //        [ResponseCache(Location =ResponseCacheLocation.None,NoStore =true)]
         public async Task<ActionResult<APIResponse>> GetCategory(int id)
         {

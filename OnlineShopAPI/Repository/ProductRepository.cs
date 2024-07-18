@@ -13,7 +13,6 @@ namespace OnlineShopAPI.Repository
         {
             _db = db;
         }
-
         public async Task<Product> UpdateAsync(Product entity)
         {
             entity.UpdatedDate = DateTime.Now;

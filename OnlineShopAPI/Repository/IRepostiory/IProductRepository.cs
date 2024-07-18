@@ -5,10 +5,6 @@ namespace OnlineShopAPI.Repository.IRepostiory
 {
     public interface IProductRepository : IRepository<Product>
     {
-
-        Task<Product> UpdateAsync(Product entity);
-
-        //public async Task<AttributesUpdateDTO> UpdateProductAttributeAsync(AttributesUpdateDTO entity);
-        
+        Task<Product> UpdateAsync(Product entity);        
      }
 }

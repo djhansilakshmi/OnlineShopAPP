@@ -90,9 +90,7 @@ namespace OnlineShopAPI.Controllers
                 {
                     _response.StatusCode = HttpStatusCode.NotFound;
                     return NotFound(_response);
-                }
-
-               //product.Attributes = await _dbAttribute.GetAllAsync(u => u.ProductID == id);                
+                }                      
 
                 _response.Result = _mapper.Map<ProductDTO>(product);
                 _response.StatusCode = HttpStatusCode.OK;

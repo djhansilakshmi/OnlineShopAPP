@@ -6,7 +6,6 @@
         <h1 class="text-primary">Update Product : @Model.Product.Name</h1>
         <hr />
         <input hidden asp-for="Product.ProductId" />
-        @* <input hidden asp-for="Product.CategoryID" /> *@
         <input type="hidden" asp-for="Product.CategoryID" value="@TempData["CategoryId"]" id="hdnCategoryID" />
         <input type="hidden" asp-for="Product.Name" value="@TempData["Name"]" id="hdnName" />
         <input type="hidden" asp-for="Product.Brand" value="@TempData["Brand"]" id="hdnBrand" />

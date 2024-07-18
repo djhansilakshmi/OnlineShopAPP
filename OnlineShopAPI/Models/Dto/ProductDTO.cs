@@ -15,8 +15,8 @@ namespace OnlineShopAPI.Models.Dto
 
         [ForeignKey("category")]
         public int CategoryID { get; set; }
-        // Check if this is needed or not 
-        public Category category { get; set; }
+        
+       // public Category category { get; set; }
         public string Currency { get; set; }
         public double Amount { get; set; }
 

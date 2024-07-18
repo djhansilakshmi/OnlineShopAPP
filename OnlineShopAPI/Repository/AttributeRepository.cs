@@ -12,7 +12,6 @@ namespace OnlineShopAPI.Repository
             _db = db;
         }
 
-
         public async Task<Attributes> UpdateAsync(Attributes entity)
         {
             _db.attributes.Update(entity);

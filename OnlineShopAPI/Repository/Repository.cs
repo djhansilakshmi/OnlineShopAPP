@@ -12,8 +12,7 @@ namespace OnlineShopAPI.Repository
         internal DbSet<T> dbSet;
         public Repository(ApplicationDbContext db)
         {
-            _db = db;
-            //_db.VillaNumbers.Include(u => u.Villa).ToList();
+            _db = db;           
             this.dbSet=_db.Set<T>();
         }
 
@@ -22,8 +21,7 @@ namespace OnlineShopAPI.Repository
             await dbSet.AddAsync(entity);
             await SaveAsync();
         }
-
-        //"Villa,VillaSpecial"
+        
         public async Task<T> GetAsync(Expression<Func<T, bool>> filter = null, bool tracked = true, string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;

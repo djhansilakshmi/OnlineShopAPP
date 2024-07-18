@@ -8,12 +8,7 @@ namespace OnlineShopAPI.Models
   /// </summary>
     public class AttributesCreateDTO
     {
-
-        //public int AttributeId { get; set; }
-
-        //[ForeignKey("product")]
         public int ProductID { get; set; }
-        //public Product product { get; set; }
         public string Name { get; set; }
         public string Value { get; set; }
     }
