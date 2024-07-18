@@ -1,0 +1,45 @@
+﻿@model OnlineShop_Web.Models.VM.AttributesUpdateVM
+
+<form asp-action="UpdateAttributes">
+    <br />
+    <div class="container border p-3">
+        <h1 class="text-primary">Update Attribute</h1>
+        <hr />
+        <input hidden asp-for="Attributes.AttributeId" />
+        <input hidden asp-for="Attributes.ProductID" value="@TempData["ProductId"]" id="hdnProductId" />
+
+        <div class="row">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            @* Name  *@
+            <div class="col-2">
+                <label asp-for="Attributes.Name" class="control-label pt-2" style="font-size:20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="Attributes.Name" class="form-control" />
+                <span asp-validation-for="Attributes.Name" class="text-danger"></span>
+            </div>
+
+            @* value  *@
+            <div class="col-2">
+                <label asp-for="Attributes.Value" class="control-label pt-2" style="font-size:20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="Attributes.Value" class="form-control" />
+                <span asp-validation-for="Attributes.Value" class="text-danger"></span>
+            </div>
+
+            <div class="col-5 offset-2">
+                <a asp-action="IndexAttributes" asp-controller="Attributes" asp-route-productId="@TempData["ProductId"]" class="btn-primary btn form-control ">Back to List</a>
+            </div>
+            <div class="col-5">
+                <input type="submit" value="Update" class="btn btn-success form-control" />
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNetCore.Components
+@model IEnumerable<OnlineShop_Web.Models.Dto.CategoryDTO>
+
+<img class="d-block w-100" src="images/home/slide1.jpg" alt="">
+
+<hr />
+<div class="row" style="--bs-gutter-x:0">
+    @foreach (var category in Model)
+    {
+        <div class="p-4 col-md-12 col-lg-6">
+            <div class="row" style="border-radius:20px; border: 1px solid #ffffff">
+                <div class="col-8">
+                    <p class="card-title text-warning" style="font-size:xx-large">@category.Name</p>                    
+                </div>
+            </div>
+        </div>
+    }
+</div>

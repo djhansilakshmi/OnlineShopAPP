@@ -1,0 +1,66 @@
+﻿@model IEnumerable<OnlineShop_Web.Models.Dto.ProductDTO>
+@using OnlineShop_Utility
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpAcc
+<br />
+<div class="container p-4 border">
+	<div class="row pb-2">
+		<div class="col">
+			<h1 class="text-primary">Product List</h1>
+		</div>
+		<div class="col text-end pt-1">
+			<a asp-controller="Category" asp-action="IndexCategory" class="btn btn-outline-primary"><i class="bi bi-plus-square-fill"></i> Back to Category</a>
+			@if (httpAcc.HttpContext.Session.GetString(SD.SessionRole) != null &&
+					httpAcc.HttpContext.Session.GetString(SD.SessionRole).ToString() == "admin")
+					{
+			
+			<a asp-controller="Product" asp-action="CreateProduct" asp-route-categoryId="@TempData["CategoryId"]" class="btn btn-outline-primary"><i class="bi bi-plus-square-fill"></i> Create New Product</a>
+					}
+		</div>
+	</div>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					Name
+				</th>
+				<th>
+					Brand
+				</th>
+				<th>Description</th>
+				<th>Currency</th>
+				<th>Amount</th>
+				<th>InventoryTotal</th>
+				<th>InventoryAvailable</th>
+				<th>InventoryReserved</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>@item.Name</td>
+					<td>@item.Brand</td>
+					<td>@item.Description</td>
+					<td>@item.Currency</td>
+					<td>@item.Amount</td>
+					<td>@item.InventoryTotal</td>
+					<td>@item.InventoryAvailable</td>
+					<td>@item.InventoryReserved</td>
+					<td>
+						@if (httpAcc.HttpContext.Session.GetString(SD.SessionRole) != null &&
+																			httpAcc.HttpContext.Session.GetString(SD.SessionRole).ToString() == "admin")
+						{
+							<a asp-controller="Product" asp-action="UpdateProduct" asp-route-productId="@item.ProductId" class="btn btn-success"><i class="bi bi-pencil-square">Edit</i></a>
+							<a asp-controller="Product" asp-action="DeleteProduct" asp-route-productId="@item.ProductId" class="btn btn-danger"><i class="bi bi-trash-fill">Delete</i></a>
+						}
+
+						<a asp-controller="Attributes" asp-action="IndexAttributes" asp-route-productId="@item.ProductId" class="btn btn-danger"><i class="bi bi-trash-fill">View Attributes</i></a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+
+</div>

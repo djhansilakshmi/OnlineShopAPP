@@ -1,0 +1,56 @@
+﻿@model IEnumerable<OnlineShop_Web.Models.Dto.CategoryDTO>
+@using OnlineShop_Utility
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpAcc
+<br />
+<div class="container p-4 border">
+	<div class="row pb-2">
+		<div class="col">
+			<h1 class="text-primary">Category List</h1>
+		</div>
+		<div class="col text-end pt-1">
+			@if (httpAcc.HttpContext.Session.GetString(SD.SessionRole) != null &&
+					httpAcc.HttpContext.Session.GetString(SD.SessionRole).ToString() == "admin")
+					{
+					<a asp-controller="Category" asp-action="CreateCategory" class="btn btn-outline-primary">
+						<i class="bi bi-plus-square-fill"></i> Create New Category</a>
+					}
+		</div>
+	</div>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					Name
+				</th>
+				@if (httpAcc.HttpContext.Session.GetString(SD.SessionRole) != null &&
+					httpAcc.HttpContext.Session.GetString(SD.SessionRole).ToString() == "admin")
+					{
+				<th></th>
+					}
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>@item.Name</td>
+					@if (httpAcc.HttpContext.Session.GetString(SD.SessionRole) != null &&
+																httpAcc.HttpContext.Session.GetString(SD.SessionRole).ToString() == "admin")
+					{
+						<td>
+							<a asp-controller="Category" asp-action="UpdateCategory" asp-route-categoryId="@item.Id" class="btn btn-success"><i class="bi bi-pencil-square">Edit</i></a>
+							<a asp-controller="Category" asp-action="DeleteCategory" asp-route-categoryId="@item.Id" class="btn btn-danger"><i class="bi bi-trash-fill">Delete</i></a>
+						</td>
+					}
+					<td>
+						<a asp-controller="Product" asp-action="IndexProduct" asp-route-categoryId="@item.Id" class="btn btn-success"><i class="bi bi-pencil-square">View Product</i></a>
+					</td>
+
+				</tr>
+			}
+		</tbody>
+	</table>
+
+</div>
