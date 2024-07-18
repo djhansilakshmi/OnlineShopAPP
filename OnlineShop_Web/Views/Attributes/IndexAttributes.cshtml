@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<OnlineShop_Web.Models.Dto.AttributesDTO>
+@using OnlineShop_Utility
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpAcc
 <br />
 <div class="container p-4 border">
 	<div class="row pb-2">
@@ -7,7 +9,11 @@
 		</div>
 		<div class="col text-end pt-1">
 			<a asp-controller="Product" asp-action="IndexProduct" asp-route-categoryId="@TempData["CategoryId"]" class="btn btn-success"><i class="bi bi-pencil-square">Back to Products</i></a>
+			@if (httpAcc.HttpContext.Session.GetString(SD.SessionRole) != null &&
+					httpAcc.HttpContext.Session.GetString(SD.SessionRole).ToString() == "admin")
+					{
 			<a asp-controller="Attributes" asp-action="CreateAttributes" asp-route-productId="@TempData["ProductId"]" class="btn btn-outline-primary"><i class="bi bi-plus-square-fill"></i> Create New Attribute</a>
+					}
 		</div>
 	</div>
 
@@ -20,8 +26,11 @@
 				<th>
 					Value
 				</th>
-				
+				@if (httpAcc.HttpContext.Session.GetString(SD.SessionRole) != null &&
+					httpAcc.HttpContext.Session.GetString(SD.SessionRole).ToString() == "admin")
+					{
 				<th></th>
+					}
 			</tr>
 		</thead>
 		<tbody>
@@ -30,10 +39,14 @@
 				<tr>
 					<td>@item.Name</td>
 					<td>@item.Value</td>
-					<td>
-						<a asp-controller="Attributes" asp-action="UpdateAttributes" asp-route-attributeId="@item.AttributeId" class="btn btn-success"><i class="bi bi-pencil-square">Edit</i></a>
-						<a asp-controller="Attributes" asp-action="DeleteAttributes" asp-route-attributeId="@item.AttributeId" class="btn btn-danger"><i class="bi bi-trash-fill">Delete</i></a>
-					</td>
+					@if (httpAcc.HttpContext.Session.GetString(SD.SessionRole) != null &&
+																httpAcc.HttpContext.Session.GetString(SD.SessionRole).ToString() == "admin")
+					{
+						<td>
+							<a asp-controller="Attributes" asp-action="UpdateAttributes" asp-route-attributeId="@item.AttributeId" class="btn btn-success"><i class="bi bi-pencil-square">Edit</i></a>
+							<a asp-controller="Attributes" asp-action="DeleteAttributes" asp-route-attributeId="@item.AttributeId" class="btn btn-danger"><i class="bi bi-trash-fill">Delete</i></a>
+						</td>
+					}
 				</tr>
 			}
 		</tbody>

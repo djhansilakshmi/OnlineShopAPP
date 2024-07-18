@@ -46,7 +46,12 @@ namespace OnlineShop_Web.Controllers
 
 
                 HttpContext.Session.SetString(SD.SessionToken, model.Token);
-                return RedirectToAction("Index","Home");
+                if (jwt.Claims.FirstOrDefault(u => u.Type == "role").Value == "admin")
+                {
+					HttpContext.Session.SetString(SD.SessionRole, jwt.Claims.FirstOrDefault(u => u.Type == "role").Value);
+				}
+				
+				return RedirectToAction("Index","Home");
             }
             else
             {
@@ -79,7 +84,9 @@ namespace OnlineShop_Web.Controllers
         {
             await HttpContext.SignOutAsync();
             HttpContext.Session.SetString(SD.SessionToken, "");
-            return RedirectToAction("Index","Home");
+			HttpContext.Session.SetString(SD.SessionRole, "");
+			
+			return RedirectToAction("Index","Home");
         }
 
         public IActionResult AccessDenied()
