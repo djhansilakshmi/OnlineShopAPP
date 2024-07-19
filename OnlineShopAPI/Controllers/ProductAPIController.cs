@@ -38,10 +38,21 @@ namespace OnlineShopAPI.Controllers
         {
             try
             {
+				
+				Category category = await _dbCategory.GetAsync(u => u.Id == categoryId);
 
-                IEnumerable<Product> ProductList = await _dbProduct.GetAllAsync(u => u.CategoryID == categoryId);
+				if (category == null)
+				{
+					_response.StatusCode = HttpStatusCode.NotFound;
+					_response.ErrorMessages = new List<string>() { "Requested category is not valid" };
+					_response.IsSuccess = false;
+					return _response;
 
-                if(ProductList == null)
+				}
+
+				IEnumerable<Product> ProductList = await _dbProduct.GetAllAsync(u => (u.CategoryID == categoryId) && (u.InventoryAvailable > 0) && (u.InventoryAvailable > u.InventoryReserved));
+
+                if(ProductList == null || ProductList.Count() == 0)
                 {
                     _response.StatusCode = HttpStatusCode.NotFound;
                     _response.ErrorMessages = new List<string>() { "No products found"};

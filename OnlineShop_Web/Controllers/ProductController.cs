@@ -36,7 +36,16 @@ namespace OnlineShop_Web.Controllers
             if (response != null && response.IsSuccess)
             {
                 list = JsonConvert.DeserializeObject<List<ProductDTO>>(Convert.ToString(response.Result));
-}
+            }
+            else
+            {
+                foreach (var item in response.ErrorMessages)
+                {
+                    TempData["error"] = TempData["error"] + " " + item.ToString();
+
+				}
+             }
+   
             return View(list);
         }
 
@@ -62,7 +71,8 @@ namespace OnlineShop_Web.Controllers
                 var response = await _productService.CreateAsync<APIResponse>(model.Product, HttpContext.Session.GetString(SD.SessionToken));
                 if (response != null && response.IsSuccess)
                 {
-                    return RedirectToAction(nameof(IndexProduct), new { categoryId = model.Product.CategoryID });
+				TempData["success"] = "Product created successfully.";
+				return RedirectToAction(nameof(IndexProduct), new { categoryId = model.Product.CategoryID });
                 }
                 else
                 {
@@ -116,7 +126,8 @@ namespace OnlineShop_Web.Controllers
                 var response = await _productService.UpdateAsync<APIResponse>(model.Product, HttpContext.Session.GetString(SD.SessionToken));
                 if (response != null && response.IsSuccess)
                 {
-                    return RedirectToAction(nameof(IndexProduct), new { categoryId = model.Product.CategoryID });
+					TempData["success"] = "Product updated successfully.";
+					return RedirectToAction(nameof(IndexProduct), new { categoryId = model.Product.CategoryID });
                 }
                 else
                 {
@@ -175,8 +186,8 @@ namespace OnlineShop_Web.Controllers
             var response = await _productService.DeleteAsync<APIResponse>(model.Product.ProductId, HttpContext.Session.GetString(SD.SessionToken));
             if (response != null && response.IsSuccess)
             {
-                
-                return RedirectToAction(nameof(IndexProduct), new { categoryId = model.Product.CategoryID });
+				TempData["success"] = "Product deleted successfully.";
+				return RedirectToAction(nameof(IndexProduct), new { categoryId = model.Product.CategoryID });
             }
 
             return View(model);

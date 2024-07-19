@@ -51,7 +51,7 @@ namespace OnlineShop_Web.Controllers
                 var response = await _categoryService.CreateAsync<APIResponse>(model, HttpContext.Session.GetString(SD.SessionToken));
                 if (response != null && response.IsSuccess)
 {
-                    TempData["success"] = "Villa created successfully";
+                    TempData["success"] = "Category created successfully";
                     return RedirectToAction(nameof(IndexCategory));
                 }
             }
