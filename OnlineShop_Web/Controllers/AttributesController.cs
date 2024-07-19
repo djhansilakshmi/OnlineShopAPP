@@ -50,8 +50,8 @@ namespace OnlineShop_Web.Controllers
 			ProductDTO productDTO;
 			var response = await _productService.GetAsync<APIResponse>(productId, HttpContext.Session.GetString(SD.SessionToken));
 			productDTO = JsonConvert.DeserializeObject<ProductDTO>(Convert.ToString(response.Result));
-			TempData["ProductId"] = productDTO.ProductId;
-            attributesVM.Attributes.ProductId = productId;
+			TempData["ProductId"] = productDTO.ProductId;	
+			attributesVM.Attributes.ProductId = productId;
 			return View(attributesVM);
         }
 
@@ -66,7 +66,8 @@ namespace OnlineShop_Web.Controllers
                 var response = await _attributesService.CreateAsync<APIResponse>(model.Attributes, HttpContext.Session.GetString(SD.SessionToken));
                 if (response != null && response.IsSuccess)
                 {
-                    return RedirectToAction(nameof(IndexAttributes),new { productId = model.Attributes.ProductId });
+					TempData["success"] = "Attribute created successfully.";
+					return RedirectToAction(nameof(IndexAttributes),new { productId = model.Attributes.ProductId });
                 }
                 else
                 {
@@ -106,7 +107,8 @@ namespace OnlineShop_Web.Controllers
                 var response = await _attributesService.UpdateAsync<APIResponse>(model.Attributes, HttpContext.Session.GetString(SD.SessionToken));
                 if (response != null && response.IsSuccess)
                 {
-                    return RedirectToAction(nameof(IndexAttributes), new { productId = model.Attributes.ProductID });
+					TempData["success"] = "Attribute updated successfully.";
+					return RedirectToAction(nameof(IndexAttributes), new { productId = model.Attributes.ProductID });
                 }
                 else
                 {
@@ -143,7 +145,8 @@ namespace OnlineShop_Web.Controllers
             var response = await _attributesService.DeleteAsync<APIResponse>(model.attribute.AttributeId, HttpContext.Session.GetString(SD.SessionToken));
             if (response != null && response.IsSuccess)
             {
-                return RedirectToAction(nameof(IndexAttributes), new { productId = model.attribute.ProductID });
+				TempData["success"] = "Attribute Deleted successfully.";
+				return RedirectToAction(nameof(IndexAttributes), new { productId = model.attribute.ProductID });
             }
 
             return View(model);
