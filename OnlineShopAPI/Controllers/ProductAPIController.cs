@@ -116,12 +116,14 @@ namespace OnlineShopAPI.Controllers
             return _response;
         }
 
-        // [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<APIResponse>> CreateProduct([FromBody] ProductCreateDTO createDTO)
+		[ProducesResponseType(StatusCodes.Status403Forbidden)]
+		[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+		public async Task<ActionResult<APIResponse>> CreateProduct([FromBody] ProductCreateDTO createDTO)
         {
             try
                 {
@@ -154,11 +156,13 @@ namespace OnlineShopAPI.Controllers
             return _response;
         }
                
-        //[Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         [HttpPut("{id:int}", Name = "UpdateProduct")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<APIResponse>> UpdateProduct(int id, [FromBody] ProductUpdateDTO updateDTO)
+		[ProducesResponseType(StatusCodes.Status403Forbidden)]
+		[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+		public async Task<ActionResult<APIResponse>> UpdateProduct(int id, [FromBody] ProductUpdateDTO updateDTO)
         {
             try
             {
@@ -190,12 +194,14 @@ namespace OnlineShopAPI.Controllers
             return _response;
         }
 
-        //[Authorize(Roles = "admin")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [Authorize(Roles = "admin")]
+		[HttpDelete("{id:int}", Name = "DeleteProduct")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [HttpDelete("{id:int}", Name = "DeleteProduct")]
-        public async Task<ActionResult<APIResponse>> DeleteProduct(int id)
+		[ProducesResponseType(StatusCodes.Status403Forbidden)]
+		[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+		public async Task<ActionResult<APIResponse>> DeleteProduct(int id)
         {
             try
             {
