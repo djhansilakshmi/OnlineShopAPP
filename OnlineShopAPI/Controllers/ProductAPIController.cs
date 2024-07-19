@@ -116,7 +116,7 @@ namespace OnlineShopAPI.Controllers
             return _response;
         }
 
-        // [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -154,7 +154,7 @@ namespace OnlineShopAPI.Controllers
             return _response;
         }
                
-        //[Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         [HttpPut("{id:int}", Name = "UpdateProduct")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -190,11 +190,11 @@ namespace OnlineShopAPI.Controllers
             return _response;
         }
 
-        //[Authorize(Roles = "admin")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [Authorize(Roles = "admin")]
+		[HttpDelete("{id:int}", Name = "DeleteProduct")]
+		[ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [HttpDelete("{id:int}", Name = "DeleteProduct")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]       
         public async Task<ActionResult<APIResponse>> DeleteProduct(int id)
         {
             try

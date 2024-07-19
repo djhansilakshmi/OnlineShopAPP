@@ -70,9 +70,8 @@ namespace OnlineShopAPI.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-     
-        //        [ResponseCache(Location =ResponseCacheLocation.None,NoStore =true)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]     
+        //[ResponseCache(Location =ResponseCacheLocation.None,NoStore =true)]
         public async Task<ActionResult<APIResponse>> GetCategory(int id)
         {
             try
@@ -106,7 +105,7 @@ namespace OnlineShopAPI.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -116,7 +115,7 @@ namespace OnlineShopAPI.Controllers
             {
                 if (await _dbCategory.GetAsync(u => u.Name.ToLower() == createDTO.Name.ToLower()) != null)
                 {
-                    ModelState.AddModelError("ErrorMessages", "Villa already Exists!");
+                    ModelState.AddModelError("ErrorMessages", "Category already Exists!");
                     return BadRequest(ModelState);
                 }
 
@@ -142,7 +141,7 @@ namespace OnlineShopAPI.Controllers
             return _response;
         }
 
-        //[Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")]
         [HttpPut("{id:int}", Name = "UpdateCategory")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -171,14 +170,14 @@ namespace OnlineShopAPI.Controllers
             return _response;
         }
 
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+		[Authorize(Roles = "admin")]
+		[HttpDelete("{id:int}", Name = "DeleteCategory")]		
+		[ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [HttpDelete("{id:int}", Name = "DeleteCategory")]
-        //[Authorize(Roles = "admin")]
-        public async Task<ActionResult<APIResponse>> DeleteVilla(int id)
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]        
+        public async Task<ActionResult<APIResponse>> DeleteCategory(int id)
         {
             try
             {
@@ -186,12 +185,12 @@ namespace OnlineShopAPI.Controllers
                 {
                     return BadRequest();
                 }
-                var villa = await _dbCategory.GetAsync(u => u.Id == id);
-                if (villa == null)
+                var category = await _dbCategory.GetAsync(u => u.Id == id);
+                if (category == null)
                 {
                     return NotFound();
                 }
-                await _dbCategory.RemoveAsync(villa);
+                await _dbCategory.RemoveAsync(category);
                 _response.StatusCode = HttpStatusCode.NoContent;
                 _response.IsSuccess = true;
                 return Ok(_response);
@@ -204,10 +203,5 @@ namespace OnlineShopAPI.Controllers
             }
             return _response;
         }
-
-      
-
-
-
     }
 }
