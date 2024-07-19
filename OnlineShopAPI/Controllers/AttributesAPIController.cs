@@ -97,7 +97,9 @@ namespace OnlineShopAPI.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<APIResponse>> CreateAttribute(int productId, [FromBody] AttributesCreateDTO createDTO)
+		[ProducesResponseType(StatusCodes.Status403Forbidden)]
+		[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+		public async Task<ActionResult<APIResponse>> CreateAttribute(int productId, [FromBody] AttributesCreateDTO createDTO)
         {
             try
             {
@@ -135,7 +137,9 @@ namespace OnlineShopAPI.Controllers
         [HttpPut("{attributeId:int}", Name = "UpdateAttributes")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<APIResponse>> UpdateAttributes(int attributeId, [FromBody] AttributesUpdateDTO updateDTO)
+		[ProducesResponseType(StatusCodes.Status403Forbidden)]
+		[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+		public async Task<ActionResult<APIResponse>> UpdateAttributes(int attributeId, [FromBody] AttributesUpdateDTO updateDTO)
         {
             try
             {
@@ -170,7 +174,9 @@ namespace OnlineShopAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [HttpDelete("{id:int}", Name = "DeleteAttribute")]
+		[ProducesResponseType(StatusCodes.Status403Forbidden)]
+		[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+		[HttpDelete("{id:int}", Name = "DeleteAttribute")]
         public async Task<ActionResult<APIResponse>> DeleteAttribute(int id)
         {
             try
